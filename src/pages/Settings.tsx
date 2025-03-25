@@ -3,10 +3,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import EnergyZones from '@/components/EnergyZones';
+import GoogleCalendarSync from '@/components/GoogleCalendarSync';
 import { useTasks } from '@/hooks/useTasks';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
+import { Separator } from '@/components/ui/separator';
 
 const Settings = () => {
   const {
@@ -48,12 +50,24 @@ const Settings = () => {
         <div className="glass-card rounded-lg p-6 animate-fade-in">
           <h1 className="text-2xl font-semibold mb-6">Settings</h1>
           
-          <EnergyZones
-            timeBlocks={timeBlocks}
-            onAddTimeBlock={handleAddTimeBlock}
-            onUpdateTimeBlock={handleUpdateTimeBlock}
-            onDeleteTimeBlock={handleDeleteTimeBlock}
-          />
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-xl font-medium mb-4">Energy Zones</h2>
+              <EnergyZones
+                timeBlocks={timeBlocks}
+                onAddTimeBlock={handleAddTimeBlock}
+                onUpdateTimeBlock={handleUpdateTimeBlock}
+                onDeleteTimeBlock={handleDeleteTimeBlock}
+              />
+            </div>
+            
+            <Separator />
+            
+            <div>
+              <h2 className="text-xl font-medium mb-4">Integrations</h2>
+              <GoogleCalendarSync />
+            </div>
+          </div>
         </div>
       </main>
     </div>
