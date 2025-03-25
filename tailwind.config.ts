@@ -75,6 +75,13 @@ export default {
 					high: '#7C65FC',
 					medium: '#96D0FF',
 					low: '#E5E7EB',
+				},
+				linear: {
+					bg: '#101112',
+					card: '#171717',
+					border: '#252525',
+					hover: '#1f1f1f',
+					selected: '#252525',
 				}
 			},
 			borderRadius: {

@@ -1,44 +1,29 @@
 
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { ArrowLeft, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
-
-// Mock authentication - in a real app, replace with actual auth
-const mockLogin = (email: string, password: string): Promise<boolean> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      // In a real app, this would be an actual authentication check
-      if (email && password) {
-        // Store auth state in localStorage for demo purposes
-        localStorage.setItem('isAuthenticated', 'true');
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    }, 1000);
-  });
-};
+import useAuth from '@/hooks/useAuth';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const success = await mockLogin(email, password);
+      const success = await login(email, password);
       if (success) {
         toast.success('Login successful');
-        navigate('/');
+        // No need to navigate here - useAuth hook will handle it
       } else {
         toast.error('Invalid email or password');
       }
@@ -50,7 +35,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/40">
+    <div className="min-h-screen flex flex-col bg-background">
       <header className="bg-background flex justify-between items-center px-6 py-4">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center gap-2">
@@ -63,7 +48,7 @@ const Login = () => {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md border-border/30 bg-card/30 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-2xl">Log in</CardTitle>
             <CardDescription>

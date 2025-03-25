@@ -24,7 +24,7 @@ const App = () => {
         <AuthProvider>
           <TaskProvider>
             <Toaster />
-            <Sonner position="bottom-right" />
+            <Sonner position="bottom-right" theme="dark" />
             <BrowserRouter>
               <Routes>
                 {/* Public routes */}

@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (email && password) {
       localStorage.setItem('isAuthenticated', 'true');
       setIsAuthenticated(true);
+      navigate('/dashboard'); // Navigate to dashboard after successful login
       return true;
     }
     return false;

@@ -28,3 +28,11 @@ export const getEnergyLevelClass = (energyLevel: EnergyLevel): string => {
       return '';
   }
 };
+
+// Get tailwind classes for Linear-style components
+export const getLinearStyleClasses = {
+  card: "bg-card/30 border border-border/20 backdrop-blur-sm shadow-sm",
+  input: "bg-background/50 border-border/20",
+  button: "hover:bg-accent/40 transition-colors",
+  glassPanel: "bg-card/20 backdrop-blur-sm border border-border/10 shadow-sm"
+};
