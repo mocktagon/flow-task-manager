@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Calendar, Settings, LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import useAuth from '@/hooks/useAuth';
@@ -8,10 +8,12 @@ import { toast } from 'sonner';
 
 const Header = () => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     toast.success('Logged out successfully');
+    navigate('/landing');
   };
 
   return (
