@@ -11,8 +11,8 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    // Redirect to landing page instead of login directly
-    return <Navigate to="/landing" replace />;
+    // Redirect to home page (Landing) instead of /landing
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;

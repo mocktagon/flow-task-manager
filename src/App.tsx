@@ -26,12 +26,12 @@ const App = () => {
           <AuthProvider>
             <Routes>
               {/* Public routes */}
-              <Route path="/landing" element={<Landing />} />
+              <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               
               {/* Protected routes */}
-              <Route path="/" element={
+              <Route path="/dashboard" element={
                 <ProtectedRoute>
                   <Index />
                 </ProtectedRoute>
@@ -42,8 +42,8 @@ const App = () => {
                 </ProtectedRoute>
               } />
               
-              {/* Default route for unauthenticated users */}
-              <Route path="*" element={<Landing />} />
+              {/* Fallback route */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </AuthProvider>
         </BrowserRouter>

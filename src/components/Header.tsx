@@ -13,7 +13,7 @@ const Header = () => {
   const handleLogout = () => {
     logout();
     toast.success('Logged out successfully');
-    navigate('/landing');
+    navigate('/');
   };
 
   return (
@@ -22,9 +22,9 @@ const Header = () => {
         <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
           <Calendar className="h-5 w-5 text-white" />
         </div>
-        <h1 className="text-xl font-semibold text-foreground tracking-tight">
+        <Link to="/dashboard" className="text-xl font-semibold text-foreground tracking-tight">
           Flow Tasks
-        </h1>
+        </Link>
       </div>
       <div className="flex gap-2">
         <Link to="/settings">
