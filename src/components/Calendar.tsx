@@ -57,47 +57,47 @@ const Calendar = ({
   };
 
   return (
-    <div className="flex flex-col h-full overflow-hidden">
-      <div className="flex items-center justify-between px-4 mb-4">
-        <h2 className="text-xl font-semibold">
-          {date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+    <div className="flex flex-col h-full overflow-hidden bg-white rounded-md shadow-sm">
+      <div className="flex items-center justify-between p-3 border-b">
+        <h2 className="text-base font-medium">
+          {date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
         </h2>
       </div>
       
-      <div className="flex-1 overflow-y-auto pr-2">
+      <div className="flex-1 overflow-y-auto px-2 py-1">
         {hours.map((hour) => {
           const { tasks: hourTasks, timeBlocks: hourBlocks } = getTasksForHour(hour);
           const energyBlock = hourBlocks[0];
           
           return (
-            <div key={hour} className="mb-4">
-              <div className="sticky top-0 bg-background/80 backdrop-blur-sm z-10 flex items-center gap-2 pb-1">
-                <span className="text-sm font-medium text-muted-foreground">{hour}</span>
-                <div className="h-px flex-1 bg-border" />
+            <div key={hour} className="mb-2">
+              <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 flex items-center gap-2 py-1">
+                <span className="text-xs font-medium text-gray-500 w-10">{hour}</span>
+                <div className="h-px flex-1 bg-gray-100" />
                 
                 {energyBlock && (
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${getEnergyLevelClass(energyBlock.energyLevel)}`}>
-                    {energyBlock.energyLevel} energy
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${getEnergyLevelClass(energyBlock.energyLevel)}`}>
+                    {energyBlock.energyLevel}
                   </span>
                 )}
               </div>
               
-              <div className="pl-14 space-y-2 animate-fade-in">
+              <div className="pl-10 space-y-1.5">
                 {hourTasks.length > 0 ? (
                   hourTasks.map(task => (
                     <TaskItem 
                       key={task.id}
-                      task={task}
+                      task={{...task, energyLevel: energyBlock?.energyLevel}}
                       onStartTask={onStartTask}
                       onStopTask={onStopTask}
                       onToggleComplete={onToggleComplete}
                     />
                   ))
                 ) : (
-                  <div className="py-3 text-center text-sm text-muted-foreground italic">
+                  <div className="py-1 text-center text-xs text-gray-400 italic">
                     {energyBlock 
-                      ? `Available time slot (${energyBlock.energyLevel} energy)`
-                      : 'No tasks scheduled'}
+                      ? `${energyBlock.energyLevel} energy`
+                      : ''}
                   </div>
                 )}
               </div>

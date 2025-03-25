@@ -21,15 +21,15 @@ const BacklogTasks = ({
   }
 
   return (
-    <div className="mb-8 animate-slide-up">
-      <div className="flex items-center gap-2 mb-4">
-        <h2 className="text-lg font-semibold">Backlog</h2>
-        <div className="bg-destructive/10 text-destructive text-xs px-2 py-0.5 rounded-full">
-          {tasks.length} {tasks.length === 1 ? 'task' : 'tasks'}
+    <div className="mb-4 animate-slide-up">
+      <div className="flex items-center gap-2 mb-2">
+        <h2 className="text-base font-medium">Backlog</h2>
+        <div className="bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full">
+          {tasks.length}
         </div>
       </div>
       
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {tasks.map(task => (
           <TaskItem
             key={task.id}

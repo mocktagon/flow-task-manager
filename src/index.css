@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -7,6 +6,48 @@
 
 @layer base {
   :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 210 100% 66%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 5.9%;
+
+    --radius: 0.5rem; /* Smaller radius for more modern look */
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222.2 84% 4.9%;
+    --sidebar-primary: 210 100% 66%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-ring: 222.2 84% 4.9%;
+  }
+
+  .dark {
+    /* Keep dark theme values for users who might still use it */
     --background: 220 13% 8%; /* Much darker background for Linear-like appearance */
     --foreground: 210 20% 98%;
 
@@ -46,36 +87,6 @@
     --sidebar-border: 214.3 31.8% 91.4%;
     --sidebar-ring: 222.2 84% 4.9%;
   }
-
-  .light {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 210 100% 66%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-  }
 }
 
 @layer base {
@@ -89,8 +100,8 @@
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
   }
 
   ::-webkit-scrollbar-track {
@@ -107,39 +118,39 @@
 }
 
 @layer components {
-  /* Linear-inspired components */
-  .linear-card {
-    @apply bg-card/80 border border-border/30 shadow-sm rounded-md backdrop-blur-sm;
+  /* Modern components */
+  .modern-card {
+    @apply bg-white border border-border/20 shadow-sm rounded-md;
   }
   
-  .linear-divider {
-    @apply h-px w-full bg-border/30 my-3;
+  .modern-divider {
+    @apply h-px w-full bg-border/20 my-2;
   }
   
-  .linear-input {
-    @apply bg-background/50 border-border/30 focus:border-primary/50 focus:ring-primary/20 transition-all;
+  .modern-input {
+    @apply bg-white border-border/30 focus:border-primary/50 focus:ring-primary/20 transition-all;
   }
   
-  .linear-button {
-    @apply hover:bg-accent/50 transition-colors;
+  .modern-button {
+    @apply hover:bg-secondary/80 transition-colors;
   }
   
-  .linear-nav-item {
-    @apply px-3 py-1.5 rounded-md hover:bg-accent/50 transition-colors cursor-pointer;
+  .modern-nav-item {
+    @apply px-3 py-1.5 rounded-md hover:bg-secondary/80 transition-colors cursor-pointer;
   }
   
-  .linear-nav-item-active {
-    @apply bg-accent/80 font-medium;
+  .modern-nav-item-active {
+    @apply bg-secondary font-medium;
   }
   
-  /* Existing classes */
+  /* Task and energy styling */
   .glass-card {
-    @apply bg-accent/20 backdrop-blur-lg border border-border/20 shadow-sm;
+    @apply bg-white backdrop-blur-lg border border-border/20 shadow-sm;
   }
   
   .glow-text {
     @apply relative;
-    text-shadow: 0 0 10px rgba(102, 204, 255, 0.3), 0 0 20px rgba(102, 204, 255, 0.2);
+    text-shadow: 0 0 10px rgba(102, 204, 255, 0.2), 0 0 20px rgba(102, 204, 255, 0.1);
   }
   
   .glow-border {
@@ -148,7 +159,7 @@
   }
   
   .task-item {
-    @apply transform transition-all duration-200 hover:scale-[1.01] active:scale-[0.99];
+    @apply transform transition-all duration-200 hover:translate-y-[-2px] active:translate-y-[0px] shadow-sm hover:shadow;
   }
   
   .time-block {
@@ -156,15 +167,15 @@
   }
   
   .time-block-high {
-    @apply border-l-energy-high bg-energy-high/5;
+    @apply border-l-energy-high bg-energy-high text-white;
   }
   
   .time-block-medium {
-    @apply border-l-energy-medium bg-energy-medium/5;
+    @apply border-l-energy-medium bg-energy-medium text-white;
   }
   
   .time-block-low {
-    @apply border-l-energy-low bg-energy-low/5;
+    @apply border-l-energy-low bg-energy-low/90 text-gray-800;
   }
   
   .priority-badge {
@@ -181,30 +192,5 @@
   
   .priority-low {
     @apply bg-priority-low/10 text-priority-low;
-  }
-  
-  .ai-gradient-text {
-    @apply bg-gradient-to-r from-primary via-blue-500 to-cyan-400 bg-clip-text text-transparent;
-  }
-  
-  .ai-gradient-bg {
-    @apply bg-gradient-to-r from-blue-900/10 via-primary/10 to-cyan-900/10;
-  }
-  
-  .ai-card {
-    @apply rounded-md backdrop-blur-md bg-accent/20 border border-accent/20 shadow-sm hover:shadow-primary/10 transition-all duration-300;
-  }
-  
-  .ai-button-glow {
-    @apply relative;
-  }
-  
-  .ai-button-glow::after {
-    content: '';
-    @apply absolute inset-0 rounded-md bg-primary/10 blur-md opacity-0 transition-opacity duration-300;
-  }
-  
-  .ai-button-glow:hover::after {
-    @apply opacity-100;
   }
 }

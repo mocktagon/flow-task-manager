@@ -21,7 +21,7 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="dark" storageKey="flow-tasks-theme">
+      <ThemeProvider defaultTheme="light" storageKey="flow-tasks-theme">
         <TooltipProvider>
           <BrowserRouter>
             <AuthProvider>

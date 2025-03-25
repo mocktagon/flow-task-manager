@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from '@/components/Header';
 import Calendar from '@/components/Calendar';
 import TaskCreator from '@/components/TaskCreator';
@@ -68,27 +68,33 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <main className="container max-w-4xl mx-auto px-4">
-        <TaskCreator onAddTask={handleAddTask} />
-        
-        <BacklogTasks
-          tasks={backlogTasks}
-          onStartTask={handleStartTask}
-          onStopTask={handleStopTask}
-          onToggleComplete={handleToggleComplete}
-        />
-        
-        <Calendar
-          tasks={arrangedTasks}
-          timeBlocks={timeBlocks}
-          date={selectedDate}
-          onStartTask={handleStartTask}
-          onStopTask={handleStopTask}
-          onToggleComplete={handleToggleComplete}
-        />
+      <main className="container max-w-5xl mx-auto px-4 py-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="lg:col-span-1">
+            <TaskCreator onAddTask={handleAddTask} />
+            
+            <BacklogTasks
+              tasks={backlogTasks}
+              onStartTask={handleStartTask}
+              onStopTask={handleStopTask}
+              onToggleComplete={handleToggleComplete}
+            />
+          </div>
+          
+          <div className="lg:col-span-2">
+            <Calendar
+              tasks={arrangedTasks}
+              timeBlocks={timeBlocks}
+              date={selectedDate}
+              onStartTask={handleStartTask}
+              onStopTask={handleStopTask}
+              onToggleComplete={handleToggleComplete}
+            />
+          </div>
+        </div>
       </main>
       
       <Timer activeTask={activeTask} onStopTask={handleStopTask} />
