@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Task } from '../types';
-import { generateId } from '../utils/taskUtils';
+import { generateId } from '../utils/idUtils';
 
 export const useTaskOperations = (tasks: Task[], setTasks: React.Dispatch<React.SetStateAction<Task[]>>) => {
   // Add new task
