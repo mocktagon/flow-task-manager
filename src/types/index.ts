@@ -1,4 +1,3 @@
-
 export type Priority = 'high' | 'medium' | 'low';
 export type EnergyLevel = 'high' | 'medium' | 'low';
 
@@ -14,6 +13,7 @@ export interface Task {
   dueDate?: Date;
   scheduledTime?: string;
   elapsedSeconds: number;
+  energyLevel?: EnergyLevel;
 }
 
 export interface TimeBlock {
