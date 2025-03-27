@@ -3,7 +3,8 @@ import React from 'react';
 import { Task } from '@/types';
 import { formatTime, formatTimerTime, getPriorityClass } from '@/utils/taskUtils';
 import { Button } from '@/components/ui/button';
-import { Play, Pause, Check, Clock, CalendarClock, CheckSquare } from 'lucide-react';
+import { Play, Pause, Check, Clock, CalendarClock, CheckSquare, Calendar } from 'lucide-react';
+import { format } from 'date-fns';
 
 interface TaskItemProps {
   task: Task;
@@ -30,6 +31,8 @@ const TaskItem = ({
     inProgress,
     completed,
     energyLevel = 'medium', // Default to medium if not specified
+    dateCreated,
+    dueDate
   } = task;
   
   const priorityClass = getPriorityClass(priority);
@@ -48,6 +51,15 @@ const TaskItem = ({
       default:
         return 'bg-white';
     }
+  };
+
+  // Format dates
+  const formatDate = (date: Date) => {
+    return format(date, 'MMM d, yyyy');
+  };
+  
+  const formatShortDate = (date: Date) => {
+    return format(date, 'MMM d');
   };
   
   return (
@@ -81,6 +93,15 @@ const TaskItem = ({
       {description && (
         <p className="text-xs opacity-90 mb-2 pl-6">{description}</p>
       )}
+      
+      {/* Date information */}
+      <div className="flex items-center text-xs opacity-80 mb-2 pl-6 gap-2">
+        <Calendar className="h-3 w-3" />
+        <span>
+          {dateCreated && `Created: ${formatShortDate(dateCreated)}`}
+          {dueDate && ` • Due: ${formatShortDate(dueDate)}`}
+        </span>
+      </div>
       
       <div className="flex items-center justify-between mt-2 text-xs">
         <div className="flex items-center gap-1 opacity-90">
