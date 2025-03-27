@@ -4,7 +4,13 @@ import { TimeBlock, EnergyLevel } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { getEnergyLevelClass } from '@/utils/taskUtils';
-import { Plus, Edit2, Trash2 } from 'lucide-react';
+import { Plus, Edit2, Trash2, Info } from 'lucide-react';
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface EnergyZonesProps {
   timeBlocks: TimeBlock[];
@@ -55,7 +61,22 @@ const EnergyZones = ({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Energy Zones</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-semibold">Energy Zones</h2>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-6 w-6">
+                  <Info className="h-3 w-3" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p>High energy zones are filled first with tasks in order of priority, 
+                followed by medium and low energy zones. Remaining tasks are assigned randomly.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
         {!isAdding && (
           <Button
             variant="outline"

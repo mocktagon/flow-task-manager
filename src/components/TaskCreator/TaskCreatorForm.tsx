@@ -7,6 +7,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { PrioritySelector } from './PrioritySelector';
 import { TimeEstimateSelector } from './TimeEstimateSelector';
 import { DueDateSelector } from './DueDateSelector';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Info } from 'lucide-react';
 
 interface TaskCreatorFormProps {
   onSubmit: (task: Omit<Task, 'id' | 'dateCreated' | 'elapsedSeconds' | 'inProgress' | 'completed'>) => void;
@@ -58,6 +60,13 @@ const TaskCreatorForm = ({ onSubmit, onCancel }: TaskCreatorFormProps) => {
           rows={2}
         />
       </div>
+      
+      <Alert variant="default" className="bg-blue-50/50 border-blue-200/50">
+        <Info className="h-4 w-4 text-blue-500" />
+        <AlertDescription className="text-xs text-blue-700">
+          Tasks are automatically scheduled in energy zones based on priority. High priority tasks get assigned to high energy zones first.
+        </AlertDescription>
+      </Alert>
       
       <div className="flex flex-wrap gap-4">
         <PrioritySelector 
