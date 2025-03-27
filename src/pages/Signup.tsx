@@ -1,57 +1,40 @@
 
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { ArrowLeft, Calendar } from 'lucide-react';
+import { ArrowLeft, Calendar, Check } from 'lucide-react';
 import { toast } from 'sonner';
-
-// Mock signup - in a real app, replace with actual auth
-const mockSignup = (name: string, email: string, password: string): Promise<boolean> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      // In a real app, this would create a user in a database
-      if (name && email && password) {
-        // Store auth state in localStorage for demo purposes
-        localStorage.setItem('isAuthenticated', 'true');
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    }, 1000);
-  });
-};
+import useAuth from '@/hooks/useAuth';
+import SocialLoginButtons from '@/components/SocialLoginButtons';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  const { login, loginWithGoogle } = useAuth();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    try {
-      const success = await mockSignup(name, email, password);
-      if (success) {
-        toast.success('Account created successfully');
-        navigate('/');
-      } else {
-        toast.error('Failed to create account. Please try again.');
-      }
-    } catch (error) {
-      toast.error('An error occurred during sign up');
-    } finally {
+    // Simulate signup - in a real app this would be an API call
+    setTimeout(() => {
+      // After signup, log the user in automatically
+      login(email, password).then(success => {
+        if (success) {
+          toast.success('Account created successfully!');
+        }
+      });
       setIsLoading(false);
-    }
+    }, 1500);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/40">
+    <div className="min-h-screen flex flex-col bg-background">
       <header className="bg-background flex justify-between items-center px-6 py-4">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center gap-2">
@@ -64,14 +47,22 @@ const Signup = () => {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md border-border/30 bg-card/30 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-2xl">Create an account</CardTitle>
+            <CardTitle className="text-2xl">Sign up</CardTitle>
             <CardDescription>
-              Sign up for Flow Tasks to start managing your tasks efficiently
+              Create an account to start organizing your tasks
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-4">
+            <SocialLoginButtons />
+
+            <div className="flex items-center gap-2">
+              <div className="h-px bg-border flex-1"></div>
+              <span className="text-xs text-muted-foreground">OR</span>
+              <div className="h-px bg-border flex-1"></div>
+            </div>
+            
             <form onSubmit={handleSignup} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
@@ -99,14 +90,14 @@ const Signup = () => {
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Create a password"
+                  placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? 'Creating account...' : 'Sign up'}
+                {isLoading ? 'Creating account...' : 'Create account'}
               </Button>
             </form>
           </CardContent>

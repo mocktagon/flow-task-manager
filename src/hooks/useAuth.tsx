@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 interface AuthContextType {
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<boolean>;
+  loginWithGoogle: () => Promise<boolean>;
   logout: () => void;
 }
 
@@ -31,14 +32,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return false;
   };
 
+  const loginWithGoogle = async (): Promise<boolean> => {
+    try {
+      // In a real implementation, this would redirect to Google OAuth flow
+      // For demo purposes, we'll simulate a successful authentication
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('authProvider', 'google');
+      setIsAuthenticated(true);
+      navigate('/dashboard');
+      return true;
+    } catch (error) {
+      console.error('Google authentication error:', error);
+      return false;
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('authProvider');
     setIsAuthenticated(false);
     navigate('/');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, loginWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );
