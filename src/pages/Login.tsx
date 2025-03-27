@@ -13,42 +13,35 @@ import { Separator } from '@/components/ui/separator';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  const { login, loginWithGoogle } = useAuth();
+  const { login, loginWithGoogle, isLoading } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    
+    if (!email || !password) {
+      toast.error('Please enter both email and password');
+      return;
+    }
 
     try {
       const success = await login(email, password);
       if (success) {
         toast.success('Login successful');
         // No need to navigate here - useAuth hook will handle it
-      } else {
-        toast.error('Invalid email or password');
       }
     } catch (error) {
       toast.error('An error occurred during login');
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const handleGoogleLogin = async () => {
-    setIsGoogleLoading(true);
     try {
       const success = await loginWithGoogle();
       if (success) {
         toast.success('Google login successful');
-      } else {
-        toast.error('Google login failed');
       }
     } catch (error) {
       toast.error('An error occurred during Google login');
-    } finally {
-      setIsGoogleLoading(false);
     }
   };
 
@@ -78,7 +71,7 @@ const Login = () => {
               variant="outline" 
               className="w-full flex items-center justify-center gap-2" 
               onClick={handleGoogleLogin}
-              disabled={isGoogleLoading}
+              disabled={isLoading}
             >
               <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
@@ -102,7 +95,7 @@ const Login = () => {
                   </linearGradient>
                 </defs>
               </svg>
-              {isGoogleLoading ? 'Connecting...' : 'Continue with Google'}
+              {isLoading ? 'Connecting...' : 'Continue with Google'}
             </Button>
 
             <div className="flex items-center gap-2">

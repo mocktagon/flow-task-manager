@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import { Separator } from '@/components/ui/separator';
+import useAuth from '@/hooks/useAuth';
 
 const Settings = () => {
   const {
@@ -17,6 +18,8 @@ const Settings = () => {
     updateTimeBlock,
     deleteTimeBlock,
   } = useTasks();
+  
+  const { user } = useAuth();
   
   const handleAddTimeBlock = (timeBlock: any) => {
     addTimeBlock(timeBlock);
@@ -39,7 +42,7 @@ const Settings = () => {
       
       <main className="container max-w-4xl mx-auto px-4">
         <div className="mb-6">
-          <Link to="/">
+          <Link to="/dashboard">
             <Button variant="ghost" className="p-0">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Calendar
@@ -48,9 +51,21 @@ const Settings = () => {
         </div>
         
         <div className="glass-card rounded-lg p-6 animate-fade-in">
-          <h1 className="text-2xl font-semibold mb-6">Settings</h1>
+          <h1 className="text-2xl font-semibold mb-2">Settings</h1>
+          {user && (
+            <p className="text-muted-foreground mb-6">
+              Logged in as {user.name} ({user.email})
+            </p>
+          )}
           
           <div className="space-y-8">
+            <div>
+              <h2 className="text-xl font-medium mb-4">Google Calendar Integration</h2>
+              <GoogleCalendarSync />
+            </div>
+            
+            <Separator />
+            
             <div>
               <h2 className="text-xl font-medium mb-4">Energy Zones</h2>
               <EnergyZones
@@ -59,13 +74,6 @@ const Settings = () => {
                 onUpdateTimeBlock={handleUpdateTimeBlock}
                 onDeleteTimeBlock={handleDeleteTimeBlock}
               />
-            </div>
-            
-            <Separator />
-            
-            <div>
-              <h2 className="text-xl font-medium mb-4">Integrations</h2>
-              <GoogleCalendarSync />
             </div>
           </div>
         </div>

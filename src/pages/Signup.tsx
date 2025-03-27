@@ -14,23 +14,29 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { login, loginWithGoogle } = useAuth();
+  const { signup, isLoading } = useAuth();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    
+    if (!name || !email || !password) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+    
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters');
+      return;
+    }
 
-    // Simulate signup - in a real app this would be an API call
-    setTimeout(() => {
-      // After signup, log the user in automatically
-      login(email, password).then(success => {
-        if (success) {
-          toast.success('Account created successfully!');
-        }
-      });
-      setIsLoading(false);
-    }, 1500);
+    try {
+      const success = await signup(name, email, password);
+      if (success) {
+        toast.success('Account created successfully!');
+      }
+    } catch (error) {
+      toast.error('An error occurred during signup');
+    }
   };
 
   return (
@@ -94,6 +100,7 @@ const Signup = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  minLength={6}
                 />
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>

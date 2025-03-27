@@ -13,11 +13,9 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
   onSuccess = () => {}, 
   onError = () => {}
 }) => {
-  const [isGoogleLoading, setIsGoogleLoading] = React.useState(false);
-  const { loginWithGoogle } = useAuth();
+  const { loginWithGoogle, isLoading } = useAuth();
 
   const handleGoogleLogin = async () => {
-    setIsGoogleLoading(true);
     try {
       const success = await loginWithGoogle();
       if (success) {
@@ -32,8 +30,6 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
       const errorMessage = 'An error occurred during Google login';
       toast.error(errorMessage);
       onError(errorMessage);
-    } finally {
-      setIsGoogleLoading(false);
     }
   };
 
@@ -43,7 +39,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
         variant="outline" 
         className="w-full flex items-center justify-center gap-2" 
         onClick={handleGoogleLogin}
-        disabled={isGoogleLoading}
+        disabled={isLoading}
       >
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
           <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
@@ -67,7 +63,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
             </linearGradient>
           </defs>
         </svg>
-        {isGoogleLoading ? 'Connecting...' : 'Continue with Google'}
+        {isLoading ? 'Connecting...' : 'Continue with Google'}
       </Button>
     </div>
   );
