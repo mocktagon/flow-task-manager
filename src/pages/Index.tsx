@@ -1,9 +1,11 @@
+
 import React from 'react';
 import Header from '@/components/Header';
 import Calendar from '@/components/Calendar';
 import TaskCreator from '@/components/TaskCreator';
 import BacklogTasks from '@/components/BacklogTasks';
 import Timer from '@/components/Timer';
+import WorkZoneSettings from '@/components/WorkZoneSettings';
 import { useTasks } from '@/hooks/useTasks';
 import { getTasksForDate, getBacklogTasks, arrangeTasksByEnergyLevels } from '@/utils/taskUtils';
 import { toast } from 'sonner';
@@ -20,6 +22,9 @@ const Index = () => {
     toggleTaskCompletion,
     startTaskTimer,
     stopTaskTimer,
+    addTimeBlock,
+    updateTimeBlock,
+    deleteTimeBlock,
   } = useTasks();
   
   // Get tasks for today
@@ -180,6 +185,13 @@ const Index = () => {
             
             <div className="lg:col-span-2">
               <div className="genz-card p-6 genz-glow">
+                <WorkZoneSettings 
+                  timeBlocks={timeBlocks}
+                  onAddTimeBlock={addTimeBlock}
+                  onUpdateTimeBlock={updateTimeBlock}
+                  onDeleteTimeBlock={deleteTimeBlock}
+                />
+                
                 <Calendar
                   tasks={arrangedTasks}
                   timeBlocks={timeBlocks}
