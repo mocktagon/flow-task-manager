@@ -8,7 +8,7 @@ import Timer from '@/components/Timer';
 import { useTasks } from '@/hooks/useTasks';
 import { getTasksForDate, getBacklogTasks, arrangeTasksByEnergyLevels } from '@/utils/taskUtils';
 import { toast } from 'sonner';
-import { PlusCircle, ListTodo, Sparkles, Zap, ChevronRight } from 'lucide-react';
+import { PlusCircle, ListTodo, Sparkles, Zap, ChevronRight, Wand2, BrainCircuit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Index = () => {
@@ -70,7 +70,7 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen bg-[#fafafe]">
+    <div className="min-h-screen bg-gradient-to-b from-white via-[#f9f9ff] to-[#f5f5ff] genz-texture">
       <Header />
       
       <main className="container max-w-6xl mx-auto px-4 py-6">
@@ -82,7 +82,7 @@ const Index = () => {
                 <h2 className="text-2xl font-bold mb-1">Good afternoon, Jacob!</h2>
                 <p className="text-foreground/70">Your productivity score today: <span className="font-semibold text-genz-purple">87%</span></p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col xs:flex-row items-center gap-3">
                 <div className="flex -space-x-2">
                   <div className="h-8 w-8 rounded-full bg-genz-pink flex items-center justify-center text-white text-xs font-bold ring-2 ring-white">JD</div>
                   <div className="h-8 w-8 rounded-full bg-genz-blue flex items-center justify-center text-white text-xs font-bold ring-2 ring-white">SK</div>
@@ -96,34 +96,34 @@ const Index = () => {
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-              <div className="p-4 bg-genz-purple/5 rounded-xl">
+              <div className="p-4 genz-glass rounded-xl bg-genz-purple/5 border border-genz-purple/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="h-8 w-8 rounded-full bg-genz-purple/10 flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-full bg-genz-purple/10 flex items-center justify-center animate-pulse">
                     <Zap className="h-4 w-4 text-genz-purple" />
                   </div>
                   <span className="text-sm font-medium text-foreground/70">Completed</span>
                 </div>
                 <p className="text-2xl font-bold">{tasks.filter(t => t.completed).length}</p>
               </div>
-              <div className="p-4 bg-genz-blue/5 rounded-xl">
+              <div className="p-4 genz-glass rounded-xl bg-genz-blue/5 border border-genz-blue/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="h-8 w-8 rounded-full bg-genz-blue/10 flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-full bg-genz-blue/10 flex items-center justify-center animate-pulse">
                     <ListTodo className="h-4 w-4 text-genz-blue" />
                   </div>
                   <span className="text-sm font-medium text-foreground/70">In Progress</span>
                 </div>
                 <p className="text-2xl font-bold">{tasks.filter(t => !t.completed && t.inProgress).length}</p>
               </div>
-              <div className="p-4 bg-genz-teal/5 rounded-xl">
+              <div className="p-4 genz-glass rounded-xl bg-genz-teal/5 border border-genz-teal/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="h-8 w-8 rounded-full bg-genz-teal/10 flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-full bg-genz-teal/10 flex items-center justify-center animate-pulse">
                     <PlusCircle className="h-4 w-4 text-genz-teal" />
                   </div>
                   <span className="text-sm font-medium text-foreground/70">New</span>
                 </div>
                 <p className="text-2xl font-bold">{tasks.filter(t => !t.completed && !t.inProgress).length}</p>
               </div>
-              <div className="p-4 bg-genz-yellow/5 rounded-xl flex items-center justify-between">
+              <div className="p-4 genz-glass rounded-xl bg-genz-yellow/5 border border-genz-yellow/10 flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-foreground/70 mb-1">Energy Score</p>
                   <p className="text-2xl font-bold">86%</p>
@@ -152,14 +152,27 @@ const Index = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-1">
-              <div className="bg-gradient-to-br from-genz-purple/5 to-genz-indigo/5 backdrop-blur-md rounded-2xl p-6 mb-6 genz-glow">
+              <div className="bg-gradient-to-br from-genz-purple/10 to-genz-pink/10 backdrop-blur-md rounded-2xl p-6 mb-6 genz-glow border border-genz-purple/10">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-bold flex items-center gap-2">
+                    <div className="h-6 w-6 genz-gradient-bg rounded-full flex items-center justify-center">
+                      <BrainCircuit className="h-3 w-3 text-white" />
+                    </div>
+                    <span>Create New Task</span>
+                  </h3>
+                  <Button variant="ghost" size="icon" className="rounded-full h-7 w-7 bg-white/80 hover:bg-white">
+                    <Wand2 className="h-3.5 w-3.5 text-genz-purple" />
+                  </Button>
+                </div>
                 <TaskCreator onAddTask={handleAddTask} />
               </div>
               
-              <div className="genz-card p-6">
+              <div className="genz-card p-6 genz-glow">
                 <div className="flex items-center justify-between mb-5">
                   <h3 className="font-bold flex items-center gap-2">
-                    <ListTodo className="h-4 w-4 text-genz-purple" />
+                    <div className="h-6 w-6 genz-gradient-bg rounded-full flex items-center justify-center">
+                      <ListTodo className="h-3 w-3 text-white" />
+                    </div>
                     <span>Backlog</span>
                   </h3>
                   <Button variant="ghost" className="h-8 px-2 text-xs text-genz-purple">
@@ -178,7 +191,7 @@ const Index = () => {
             </div>
             
             <div className="lg:col-span-2">
-              <div className="genz-card p-6">
+              <div className="genz-card p-6 genz-glow">
                 <Calendar
                   tasks={arrangedTasks}
                   timeBlocks={timeBlocks}

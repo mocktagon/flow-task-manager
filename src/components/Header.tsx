@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Calendar, Settings, LogOut, Bell, Search, Star } from 'lucide-react';
+import { Calendar, Settings, LogOut, Bell, Search, Star, Sparkles } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import useAuth from '@/hooks/useAuth';
 import { toast } from 'sonner';
@@ -56,7 +56,7 @@ const Header = () => {
         >
           <LogOut className="h-4 w-4" />
         </Button>
-        <div className="h-9 w-9 rounded-full bg-gradient-to-r from-genz-purple to-genz-blue flex items-center justify-center text-white text-sm font-bold">
+        <div className="h-9 w-9 rounded-full genz-gradient-bg flex items-center justify-center text-white text-sm font-bold">
           JD
         </div>
       </div>
