@@ -1,0 +1,108 @@
+
+@tailwind components;
+
+@layer components {
+  /* Apple-inspired components */
+  .apple-card {
+    @apply bg-white backdrop-blur-xl shadow-md rounded-2xl border-0;
+  }
+  
+  .apple-divider {
+    @apply h-px w-full bg-border/30 my-4;
+  }
+  
+  .apple-input {
+    @apply bg-secondary/50 border-0 rounded-xl focus:ring-primary/20 transition-all;
+  }
+  
+  .apple-button {
+    @apply rounded-full font-semibold text-sm py-3 px-6 transition-colors;
+  }
+  
+  .apple-nav-item {
+    @apply px-4 py-2 rounded-full hover:bg-secondary transition-colors cursor-pointer;
+  }
+  
+  .apple-nav-item-active {
+    @apply bg-secondary font-medium;
+  }
+  
+  /* Task and energy styling */
+  .apple-glass-card {
+    @apply bg-white/90 backdrop-blur-xl border-0 shadow-md rounded-2xl;
+  }
+  
+  .apple-bold-text {
+    @apply font-display font-bold;
+  }
+  
+  .apple-glow-border {
+    @apply relative border border-primary/30 shadow-sm;
+    box-shadow: 0 0 5px rgba(124, 101, 252, 0.2), inset 0 0 5px rgba(124, 101, 252, 0.1);
+  }
+  
+  .apple-task-item {
+    @apply transform transition-all duration-200 hover:translate-y-[-2px] active:translate-y-[0px] shadow-sm hover:shadow rounded-2xl;
+  }
+  
+  .apple-time-block {
+    @apply relative border-l-2 rounded-r-md px-3 py-2 mb-1 text-sm transition-all duration-200;
+  }
+  
+  .apple-time-block-high {
+    @apply border-l-energy-high bg-energy-high text-white font-medium;
+  }
+  
+  .apple-time-block-medium {
+    @apply border-l-energy-medium bg-energy-medium text-white font-medium;
+  }
+  
+  .apple-time-block-low {
+    @apply border-l-energy-low bg-energy-low/90 text-gray-800 font-medium;
+  }
+  
+  .apple-priority-badge {
+    @apply text-xs font-bold px-2 py-1 rounded-full;
+  }
+  
+  .apple-priority-high {
+    @apply bg-priority-high/10 text-priority-high;
+  }
+  
+  .apple-priority-medium {
+    @apply bg-priority-medium/10 text-priority-medium;
+  }
+  
+  .apple-priority-low {
+    @apply bg-priority-low/10 text-priority-low;
+  }
+
+  /* Hero section styling */
+  .apple-hero-headline {
+    @apply text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight leading-tight;
+  }
+
+  .apple-hero-subheadline {
+    @apply text-xl md:text-2xl font-display font-medium tracking-tight leading-tight;
+  }
+
+  .apple-feature-title {
+    @apply text-lg font-bold mb-2;
+  }
+
+  .apple-feature-card {
+    @apply rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 p-6;
+  }
+
+  .apple-cta-button {
+    @apply rounded-full bg-primary text-white font-semibold py-3 px-8 text-base;
+  }
+
+  .apple-section-title {
+    @apply text-3xl md:text-4xl font-bold mb-4;
+  }
+  
+  .apple-section-description {
+    @apply text-lg text-foreground/80 mb-8 max-w-2xl;
+  }
+}

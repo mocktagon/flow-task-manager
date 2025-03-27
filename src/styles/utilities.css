@@ -1,0 +1,63 @@
+
+@tailwind utilities;
+
+@layer components {
+  /* Gen Z specific styling */
+  .genz-gradient-bg {
+    @apply bg-gradient-to-br from-genz-blue via-genz-purple to-genz-pink;
+  }
+
+  .genz-glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg;
+  }
+
+  .genz-card {
+    @apply bg-white rounded-2xl shadow-[0_10px_20px_rgba(120,120,170,0.1)] hover:shadow-[0_20px_30px_rgba(120,120,170,0.2)] transition-all duration-300;
+  }
+
+  .genz-button {
+    @apply bg-gradient-to-r from-genz-purple to-genz-blue text-white rounded-full px-6 py-3 font-bold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2;
+  }
+
+  .genz-pill {
+    @apply rounded-full px-4 py-1 text-sm font-medium;
+  }
+
+  .genz-texture {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .genz-glow {
+    @apply relative;
+  }
+
+  .genz-glow:after {
+    content: '';
+    @apply absolute -inset-1 rounded-3xl blur-xl bg-gradient-to-r from-genz-purple/20 to-genz-blue/20 -z-10 opacity-50 transition-all duration-300;
+  }
+
+  .genz-glow:hover:after {
+    @apply opacity-80;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-genz-purple to-genz-blue;
+  }
+
+  .border-gradient {
+    border-image: linear-gradient(to right, #8B5CF6, #3B82F6) 1;
+  }
+
+  .genz-shape {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 100%, 0% 100%);
+  }
+
+  .genz-blob {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+
+  .genz-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+  }
+}
