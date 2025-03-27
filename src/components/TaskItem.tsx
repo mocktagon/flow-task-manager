@@ -3,16 +3,23 @@ import React from 'react';
 import { Task } from '@/types';
 import { formatTime, formatTimerTime, getPriorityClass } from '@/utils/taskUtils';
 import { Button } from '@/components/ui/button';
-import { Play, Pause, Check, Clock } from 'lucide-react';
+import { Play, Pause, Check, Clock, CalendarClock, CheckSquare } from 'lucide-react';
 
 interface TaskItemProps {
   task: Task;
   onStartTask: (taskId: string) => void;
   onStopTask: (taskId: string) => void;
   onToggleComplete: (taskId: string) => void;
+  isCalendarEvent?: boolean;
 }
 
-const TaskItem = ({ task, onStartTask, onStopTask, onToggleComplete }: TaskItemProps) => {
+const TaskItem = ({ 
+  task, 
+  onStartTask, 
+  onStopTask, 
+  onToggleComplete,
+  isCalendarEvent = false
+}: TaskItemProps) => {
   const {
     id,
     title,
@@ -49,13 +56,19 @@ const TaskItem = ({ task, onStartTask, onStopTask, onToggleComplete }: TaskItemP
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <button 
-            className={`h-4 w-4 rounded-full border ${completed ? 'bg-white border-white' : 'border-white bg-transparent'} 
-              flex items-center justify-center`}
-            onClick={() => onToggleComplete(id)}
-          >
-            {completed && <Check className="h-2 w-2 text-energy-high" />}
-          </button>
+          {isCalendarEvent ? (
+            <div className="flex-shrink-0">
+              <CalendarClock className="h-4 w-4 text-white opacity-90" />
+            </div>
+          ) : (
+            <button 
+              className={`h-4 w-4 rounded-full border ${completed ? 'bg-white border-white' : 'border-white bg-transparent'} 
+                flex items-center justify-center`}
+              onClick={() => onToggleComplete(id)}
+            >
+              {completed && <Check className="h-2 w-2 text-energy-high" />}
+            </button>
+          )}
           <h3 className={`font-medium text-sm ${completed ? 'line-through opacity-70' : ''}`}>
             {title}
           </h3>
@@ -81,7 +94,7 @@ const TaskItem = ({ task, onStartTask, onStopTask, onToggleComplete }: TaskItemP
           )}
         </div>
         
-        {!completed && (
+        {!completed && !isCalendarEvent && (
           <div className="flex gap-1">
             {inProgress ? (
               <Button 

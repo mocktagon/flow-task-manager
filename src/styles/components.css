@@ -105,4 +105,25 @@
   .apple-section-description {
     @apply text-lg text-foreground/80 mb-8 max-w-2xl;
   }
+  
+  /* Calendar event vs Task styling */
+  .calendar-event {
+    @apply border-l-4 border-genz-blue;
+  }
+  
+  .task-item {
+    @apply relative;
+  }
+  
+  .task-badge {
+    @apply absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full text-white text-xs;
+  }
+  
+  .calendar-badge {
+    @apply bg-genz-blue;
+  }
+  
+  .task-badge {
+    @apply bg-genz-green;
+  }
 }

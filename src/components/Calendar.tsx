@@ -91,6 +91,7 @@ const Calendar = ({
                       onStartTask={onStartTask}
                       onStopTask={onStopTask}
                       onToggleComplete={onToggleComplete}
+                      isCalendarEvent={true}
                     />
                   ))
                 ) : (
