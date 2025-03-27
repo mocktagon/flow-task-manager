@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Header from '@/components/Header';
 import Calendar from '@/components/Calendar';
@@ -153,17 +152,6 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-1">
               <div className="bg-gradient-to-br from-genz-purple/10 to-genz-pink/10 backdrop-blur-md rounded-2xl p-6 mb-6 genz-glow border border-genz-purple/10">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-bold flex items-center gap-2">
-                    <div className="h-6 w-6 genz-gradient-bg rounded-full flex items-center justify-center">
-                      <BrainCircuit className="h-3 w-3 text-white" />
-                    </div>
-                    <span>Create New Task</span>
-                  </h3>
-                  <Button variant="ghost" size="icon" className="rounded-full h-7 w-7 bg-white/80 hover:bg-white">
-                    <Wand2 className="h-3.5 w-3.5 text-genz-purple" />
-                  </Button>
-                </div>
                 <TaskCreator onAddTask={handleAddTask} />
               </div>
               

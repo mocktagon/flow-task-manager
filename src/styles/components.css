@@ -126,4 +126,14 @@
   .task-badge {
     @apply bg-genz-green;
   }
+  
+  /* Task creator card styling */
+  .task-creator-card {
+    @apply rounded-xl border border-genz-purple/10 bg-white/50 backdrop-blur-sm 
+           shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer;
+  }
+  
+  .task-creator-card-expanded {
+    @apply rounded-xl border border-genz-purple/20 bg-white shadow-md;
+  }
 }

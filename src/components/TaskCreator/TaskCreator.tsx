@@ -17,20 +17,26 @@ const TaskCreator = ({ onAddTask }: TaskCreatorProps) => {
   };
 
   return (
-    <div className="glass-card rounded-lg p-4 mb-6 animate-scale">
+    <div className="animate-scale">
       {!isExpanded ? (
-        <button
-          className="flex items-center justify-center w-full py-2 text-muted-foreground hover:text-foreground transition-colors"
+        <div 
+          className="p-4 rounded-xl border border-genz-purple/10 bg-white/50 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer flex items-center justify-center"
           onClick={() => setIsExpanded(true)}
         >
-          <Plus className="h-5 w-5 mr-2" />
-          Add new task
-        </button>
+          <div className="flex items-center gap-2 text-genz-purple">
+            <div className="h-7 w-7 rounded-full bg-genz-purple/10 flex items-center justify-center">
+              <Plus className="h-4 w-4" />
+            </div>
+            <span className="font-medium">Create new task</span>
+          </div>
+        </div>
       ) : (
-        <TaskCreatorForm 
-          onSubmit={handleAddTask}
-          onCancel={() => setIsExpanded(false)}
-        />
+        <div className="p-4 rounded-xl border border-genz-purple/20 bg-white shadow-md transition-all duration-200">
+          <TaskCreatorForm 
+            onSubmit={handleAddTask}
+            onCancel={() => setIsExpanded(false)}
+          />
+        </div>
       )}
     </div>
   );
