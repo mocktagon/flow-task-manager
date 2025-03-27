@@ -1,5 +1,5 @@
 
-import { Task, TimeBlock, Priority } from '../types';
+import { Task, TimeBlock, Priority, EnergyLevel } from '../types';
 
 // Get tasks for the current day
 export const getTasksForDate = (tasks: Task[], date: Date): Task[] => {
@@ -55,7 +55,7 @@ export const arrangeTasksByEnergyLevels = (
         const updatedTask = { 
           ...task, 
           scheduledTime: `${block.startTime}-${block.endTime}`,
-          energyLevel: 'high'
+          energyLevel: block.energyLevel  // This is already of type EnergyLevel
         };
         assignedTasks.push(updatedTask);
       }
@@ -71,7 +71,7 @@ export const arrangeTasksByEnergyLevels = (
         const updatedTask = { 
           ...task, 
           scheduledTime: `${block.startTime}-${block.endTime}`,
-          energyLevel: 'medium'
+          energyLevel: block.energyLevel  // This is already of type EnergyLevel
         };
         assignedTasks.push(updatedTask);
       }
@@ -87,7 +87,7 @@ export const arrangeTasksByEnergyLevels = (
         const updatedTask = { 
           ...task, 
           scheduledTime: `${block.startTime}-${block.endTime}`,
-          energyLevel: 'low'
+          energyLevel: block.energyLevel  // This is already of type EnergyLevel
         };
         assignedTasks.push(updatedTask);
       }
@@ -107,7 +107,7 @@ export const arrangeTasksByEnergyLevels = (
       const updatedTask = { 
         ...task, 
         scheduledTime: `${block.startTime}-${block.endTime}`,
-        energyLevel: block.energyLevel
+        energyLevel: block.energyLevel  // This is already of type EnergyLevel
       };
       assignedTasks.push(updatedTask);
     }
