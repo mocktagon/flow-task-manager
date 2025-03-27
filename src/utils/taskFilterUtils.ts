@@ -24,8 +24,8 @@ export const getBacklogTasks = (tasks: Task[], date: Date): Task[] => {
 export const arrangeTasksByEnergyLevels = (
   tasks: Task[], 
   timeBlocks: TimeBlock[]
-): Task[] => {
-  if (!tasks.length || !timeBlocks.length) return tasks;
+): { [key: string]: Task[] } => {
+  if (!tasks.length || !timeBlocks.length) return {};
 
   // Sort tasks by priority (high first)
   const sortedTasks = [...tasks].sort((a, b) => {
@@ -38,12 +38,19 @@ export const arrangeTasksByEnergyLevels = (
   const mediumEnergyBlocks = timeBlocks.filter(b => b.energyLevel === 'medium');
   const lowEnergyBlocks = timeBlocks.filter(b => b.energyLevel === 'low');
   
+  // Initialize result object with empty arrays for each energy level
+  const result: { [key: string]: Task[] } = {
+    high: [],
+    medium: [],
+    low: [],
+    unscheduled: []
+  };
+  
   // Combine all time blocks for later use if needed
   const allTimeBlocks = [...highEnergyBlocks, ...mediumEnergyBlocks, ...lowEnergyBlocks];
 
   // Create a copy of all tasks for assignment
   const tasksToAssign = [...sortedTasks];
-  const assignedTasks: Task[] = [];
   
   // First, fill high energy blocks with any priority tasks
   // Higher priority tasks get the first pick at high energy blocks
@@ -55,9 +62,9 @@ export const arrangeTasksByEnergyLevels = (
         const updatedTask = { 
           ...task, 
           scheduledTime: `${block.startTime}-${block.endTime}`,
-          energyLevel: block.energyLevel  // This is already of type EnergyLevel
+          energyLevel: block.energyLevel
         };
-        assignedTasks.push(updatedTask);
+        result.high.push(updatedTask);
       }
     }
   }
@@ -71,9 +78,9 @@ export const arrangeTasksByEnergyLevels = (
         const updatedTask = { 
           ...task, 
           scheduledTime: `${block.startTime}-${block.endTime}`,
-          energyLevel: block.energyLevel  // This is already of type EnergyLevel
+          energyLevel: block.energyLevel
         };
-        assignedTasks.push(updatedTask);
+        result.medium.push(updatedTask);
       }
     }
   }
@@ -87,34 +94,15 @@ export const arrangeTasksByEnergyLevels = (
         const updatedTask = { 
           ...task, 
           scheduledTime: `${block.startTime}-${block.endTime}`,
-          energyLevel: block.energyLevel  // This is already of type EnergyLevel
+          energyLevel: block.energyLevel
         };
-        assignedTasks.push(updatedTask);
+        result.low.push(updatedTask);
       }
     }
   }
   
-  // Randomly assign remaining tasks to any available time blocks, if available
-  // If we have more tasks than time blocks, some will remain unscheduled
-  if (tasksToAssign.length > 0 && allTimeBlocks.length > 0) {
-    for (const task of tasksToAssign) {
-      if (allTimeBlocks.length === 0) break;
-      
-      // Take a random time block from the remaining ones
-      const randomIndex = Math.floor(Math.random() * allTimeBlocks.length);
-      const block = allTimeBlocks.splice(randomIndex, 1)[0];
-      
-      const updatedTask = { 
-        ...task, 
-        scheduledTime: `${block.startTime}-${block.endTime}`,
-        energyLevel: block.energyLevel  // This is already of type EnergyLevel
-      };
-      assignedTasks.push(updatedTask);
-    }
-  }
-  
   // Add any remaining unscheduled tasks
-  assignedTasks.push(...tasksToAssign);
+  result.unscheduled = tasksToAssign;
   
-  return assignedTasks;
+  return result;
 };
