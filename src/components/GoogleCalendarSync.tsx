@@ -138,7 +138,7 @@ const GoogleCalendarSync = () => {
             {isCalendarSynced && lastSyncedAt ? (
               <>
                 <Alert 
-                  variant="success" 
+                  variant="default" 
                   className="bg-green-50 border-green-200 text-green-800"
                 >
                   <CheckCircle className="h-4 w-4 text-green-500" />
