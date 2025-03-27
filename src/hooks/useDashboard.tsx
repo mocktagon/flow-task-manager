@@ -1,5 +1,4 @@
 
-import { useState } from 'react';
 import { Task, TimeBlock } from '@/types';
 import { useTasks } from '@/hooks/useTasks';
 import { getTasksForDate, getBacklogTasks, arrangeTasksByEnergyLevels } from '@/utils/taskUtils';

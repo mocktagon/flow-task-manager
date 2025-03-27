@@ -25,7 +25,12 @@ export const arrangeTasksByEnergyLevels = (
   tasks: Task[], 
   timeBlocks: TimeBlock[]
 ): { [key: string]: Task[] } => {
-  if (!tasks.length || !timeBlocks.length) return {};
+  if (!tasks.length || !timeBlocks.length) return {
+    high: [],
+    medium: [],
+    low: [],
+    unscheduled: []
+  };
 
   // Sort tasks by priority (high first)
   const sortedTasks = [...tasks].sort((a, b) => {

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { TimeBlock, EnergyLevel } from '@/types';
+import { TimeBlock } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Settings } from 'lucide-react';
 import {
@@ -13,15 +13,17 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import EnergyPatternCard from './EnergyPatternCard';
 
+interface EnergyPattern {
+  name: string;
+  description: string;
+  blocks: TimeBlock[];
+}
+
 interface ConfigurationPopoverProps {
   workStartTime: string;
   workEndTime: string;
   autoSchedule: boolean;
-  energyPatterns: {
-    name: string;
-    description: string;
-    blocks: TimeBlock[];
-  }[];
+  energyPatterns: EnergyPattern[];
   onWorkStartTimeChange: (time: string) => void;
   onWorkEndTimeChange: (time: string) => void;
   onAutoScheduleChange: (enabled: boolean) => void;

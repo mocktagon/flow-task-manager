@@ -1,14 +1,16 @@
 
 import React from 'react';
-import { TimeBlock, EnergyLevel } from '@/types';
+import { TimeBlock } from '@/types';
 import { toast } from 'sonner';
 
+interface EnergyPattern {
+  name: string;
+  description: string;
+  blocks: TimeBlock[];
+}
+
 interface EnergyPatternCardProps {
-  pattern: {
-    name: string;
-    description: string;
-    blocks: TimeBlock[];
-  };
+  pattern: EnergyPattern;
   onApplyPattern: (blocks: TimeBlock[]) => void;
 }
 
