@@ -118,6 +118,8 @@ export const loginWithGoogle = async (): Promise<{ success: boolean; user: User 
 
 // Sync Google Calendar
 export const syncGoogleCalendar = async (calendarId?: string): Promise<boolean> => {
+  console.log(`Attempting to sync Google Calendar. Calendar ID: ${calendarId || 'primary'}`);
+  
   try {
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 1200));
@@ -127,16 +129,57 @@ export const syncGoogleCalendar = async (calendarId?: string): Promise<boolean> 
     // 2. Fetch events from the specified calendar or primary calendar if not specified
     // 3. Store events in the app's state
     
+    // Simulate getting calendar events
+    const mockEvents = [
+      { id: '1', title: 'Team Meeting', start: '2025-03-27T10:00:00', end: '2025-03-27T11:00:00' },
+      { id: '2', title: 'Lunch with Client', start: '2025-03-27T12:30:00', end: '2025-03-27T13:30:00' },
+      { id: '3', title: 'Project Review', start: '2025-03-27T15:00:00', end: '2025-03-27T16:00:00' },
+    ];
+    
+    console.log('Successfully retrieved calendar events:', mockEvents);
+    
+    // Store the mock events in localStorage for demonstration purposes
+    localStorage.setItem('calendarEvents', JSON.stringify(mockEvents));
+    
     const now = new Date();
     
     setCalendarSyncStatus(true);
     setCalendarLastSynced(now);
     
+    console.log('Calendar sync completed successfully at', now.toISOString());
     toast.success('Google Calendar synchronized successfully');
     return true;
   } catch (error) {
     console.error('Calendar sync error:', error);
     toast.error('Failed to synchronize Google Calendar');
+    return false;
+  }
+};
+
+// Verify Google Calendar connection
+export const verifyGoogleCalendarConnection = async (): Promise<boolean> => {
+  try {
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // In a real app, this would check if the OAuth token is still valid
+    // and if we still have access to the user's calendar
+    
+    const isCalendarSynced = localStorage.getItem('flowTasks_calendarSynced') === 'true';
+    const lastSynced = localStorage.getItem('flowTasks_calendarLastSynced');
+    
+    if (!isCalendarSynced || !lastSynced) {
+      return false;
+    }
+    
+    // Check if last sync was within the last 24 hours
+    const lastSyncDate = new Date(lastSynced);
+    const now = new Date();
+    const hoursSinceLastSync = (now.getTime() - lastSyncDate.getTime()) / (1000 * 60 * 60);
+    
+    return hoursSinceLastSync < 24;
+  } catch (error) {
+    console.error('Calendar verification error:', error);
     return false;
   }
 };

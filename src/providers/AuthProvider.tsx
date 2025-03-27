@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { AuthContext, User, AuthProviderProps } from '@/contexts/AuthContext';
+import { AuthContext, User, AuthProviderProps, CalendarEvent } from '@/contexts/AuthContext';
 import {
   loginWithEmailPassword,
   signupWithEmailPassword,
   loginWithGoogle as googleLogin,
   syncGoogleCalendar as syncCalendar,
+  verifyGoogleCalendarConnection,
   logout as logoutUser
 } from '@/services/authService';
 import {
@@ -47,6 +48,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
     
     setIsLoading(false);
+    
+    // If calendar is synced, verify the connection periodically
+    if (calendarSynced === 'true') {
+      const verifyInterval = setInterval(async () => {
+        const isValid = await verifyGoogleCalendarConnection();
+        if (!isValid) {
+          toast.warning('Google Calendar connection may have expired. Please reconnect.');
+          setIsCalendarSynced(false);
+        }
+      }, 24 * 60 * 60 * 1000); // Check once per day
+      
+      return () => clearInterval(verifyInterval);
+    }
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
@@ -113,12 +127,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const now = new Date();
         setIsCalendarSynced(true);
         setLastSyncedAt(now);
+        toast.success('Calendar synchronized successfully!');
       }
       
       return success;
     } finally {
       setIsLoading(false);
     }
+  };
+  
+  const getCalendarEvents = (): CalendarEvent[] => {
+    if (!isCalendarSynced) return [];
+    
+    const storedEvents = localStorage.getItem('calendarEvents');
+    if (storedEvents) {
+      return JSON.parse(storedEvents);
+    }
+    
+    return [];
   };
 
   const logout = () => {
@@ -140,7 +166,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         isLoading,
         syncGoogleCalendar,
         isCalendarSynced,
-        lastSyncedAt
+        lastSyncedAt,
+        getCalendarEvents
       }}
     >
       {children}

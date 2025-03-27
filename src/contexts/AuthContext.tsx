@@ -9,6 +9,14 @@ export interface User {
   photoUrl?: string;
 }
 
+// Define Calendar Event interface
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  start: string;
+  end: string;
+}
+
 // Define the AuthContext interface
 export interface AuthContextType {
   isAuthenticated: boolean;
@@ -21,6 +29,7 @@ export interface AuthContextType {
   syncGoogleCalendar: (calendarId?: string) => Promise<boolean>;
   isCalendarSynced: boolean;
   lastSyncedAt: Date | null;
+  getCalendarEvents: () => CalendarEvent[];
 }
 
 // Create the context

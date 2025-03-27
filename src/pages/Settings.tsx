@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import EnergyZones from '@/components/EnergyZones';
 import GoogleCalendarSync from '@/components/GoogleCalendarSync';
+import CalendarEventsList from '@/components/CalendarEventsList';
 import { useTasks } from '@/hooks/useTasks';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
@@ -19,7 +20,7 @@ const Settings = () => {
     deleteTimeBlock,
   } = useTasks();
   
-  const { user } = useAuth();
+  const { user, isCalendarSynced } = useAuth();
   
   const handleAddTimeBlock = (timeBlock: any) => {
     addTimeBlock(timeBlock);
@@ -40,7 +41,7 @@ const Settings = () => {
     <div className="min-h-screen">
       <Header />
       
-      <main className="container max-w-4xl mx-auto px-4">
+      <main className="container max-w-4xl mx-auto px-4 pb-12">
         <div className="mb-6">
           <Link to="/dashboard">
             <Button variant="ghost" className="p-0">
@@ -61,7 +62,12 @@ const Settings = () => {
           <div className="space-y-8">
             <div>
               <h2 className="text-xl font-medium mb-4">Google Calendar Integration</h2>
-              <GoogleCalendarSync />
+              <div className="grid gap-6 md:grid-cols-2">
+                <GoogleCalendarSync />
+                {isCalendarSynced && (
+                  <CalendarEventsList />
+                )}
+              </div>
             </div>
             
             <Separator />
