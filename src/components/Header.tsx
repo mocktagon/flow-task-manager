@@ -17,22 +17,22 @@ const Header = () => {
   };
 
   return (
-    <header className="linear-card sticky top-0 z-50 flex justify-between items-center px-4 py-3 mb-4">
+    <header className="sticky top-0 z-50 flex justify-between items-center px-6 py-4 bg-white/90 backdrop-blur-md shadow-sm">
       <div className="flex items-center gap-2">
-        <div className="h-7 w-7 bg-primary/90 rounded-md flex items-center justify-center">
-          <Calendar className="h-4 w-4 text-white" />
+        <div className="h-8 w-8 bg-primary rounded-xl flex items-center justify-center">
+          <Calendar className="h-5 w-5 text-white" />
         </div>
-        <Link to="/dashboard" className="text-lg font-medium text-foreground tracking-tight">
+        <Link to="/dashboard" className="text-xl font-bold tracking-tight">
           Flow Tasks
         </Link>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <Link to="/settings">
-          <Button variant="ghost" size="icon" className="h-8 w-8">
+          <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
             <Settings className="h-4 w-4" />
           </Button>
         </Link>
-        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleLogout}>
+        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full" onClick={handleLogout}>
           <LogOut className="h-4 w-4" />
         </Button>
       </div>

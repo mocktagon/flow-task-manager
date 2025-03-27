@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -15,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 210 100% 66%;
+    --primary: 211 100% 50%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 4.8% 95.9%;
@@ -34,49 +35,7 @@
     --input: 240 5.9% 90%;
     --ring: 240 10% 5.9%;
 
-    --radius: 0.5rem; /* Smaller radius for more modern look */
-
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222.2 84% 4.9%;
-    --sidebar-primary: 210 100% 66%;
-    --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 210 40% 96.1%;
-    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
-    --sidebar-border: 214.3 31.8% 91.4%;
-    --sidebar-ring: 222.2 84% 4.9%;
-  }
-
-  .dark {
-    /* Keep dark theme values for users who might still use it */
-    --background: 220 13% 8%; /* Much darker background for Linear-like appearance */
-    --foreground: 210 20% 98%;
-
-    --card: 220 13% 10%;
-    --card-foreground: 210 20% 98%;
-
-    --popover: 220 13% 8%;
-    --popover-foreground: 210 20% 98%;
-
-    --primary: 210 100% 66%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 220 13% 12%;
-    --secondary-foreground: 210 20% 98%;
-
-    --muted: 220 13% 16%;
-    --muted-foreground: 215.4 16.3% 60%;
-
-    --accent: 220 13% 14%;
-    --accent-foreground: 210 20% 98%;
-
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 20% 98%;
-
-    --border: 240 5% 26%;
-    --input: 220 13% 14%;
-    --ring: 224 71% 4%;
-
-    --radius: 0.375rem; /* Smaller radius for more minimal look */
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 222.2 84% 4.9%;
@@ -96,6 +55,10 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
   }
 
   /* Custom scrollbar */
@@ -118,79 +81,107 @@
 }
 
 @layer components {
-  /* Modern components */
-  .modern-card {
-    @apply bg-white border border-border/20 shadow-sm rounded-md;
+  /* Apple-inspired components */
+  .apple-card {
+    @apply bg-white backdrop-blur-xl shadow-md rounded-2xl border-0;
   }
   
-  .modern-divider {
-    @apply h-px w-full bg-border/20 my-2;
+  .apple-divider {
+    @apply h-px w-full bg-border/30 my-4;
   }
   
-  .modern-input {
-    @apply bg-white border-border/30 focus:border-primary/50 focus:ring-primary/20 transition-all;
+  .apple-input {
+    @apply bg-secondary/50 border-0 rounded-xl focus:ring-primary/20 transition-all;
   }
   
-  .modern-button {
-    @apply hover:bg-secondary/80 transition-colors;
+  .apple-button {
+    @apply rounded-full font-semibold text-sm py-3 px-6 transition-colors;
   }
   
-  .modern-nav-item {
-    @apply px-3 py-1.5 rounded-md hover:bg-secondary/80 transition-colors cursor-pointer;
+  .apple-nav-item {
+    @apply px-4 py-2 rounded-full hover:bg-secondary transition-colors cursor-pointer;
   }
   
-  .modern-nav-item-active {
+  .apple-nav-item-active {
     @apply bg-secondary font-medium;
   }
   
   /* Task and energy styling */
-  .glass-card {
-    @apply bg-white backdrop-blur-lg border border-border/20 shadow-sm;
+  .apple-glass-card {
+    @apply bg-white/90 backdrop-blur-xl border-0 shadow-md rounded-2xl;
   }
   
-  .glow-text {
-    @apply relative;
-    text-shadow: 0 0 10px rgba(102, 204, 255, 0.2), 0 0 20px rgba(102, 204, 255, 0.1);
+  .apple-bold-text {
+    @apply font-display font-bold;
   }
   
-  .glow-border {
+  .apple-glow-border {
     @apply relative border border-primary/30 shadow-sm;
     box-shadow: 0 0 5px rgba(102, 204, 255, 0.2), inset 0 0 5px rgba(102, 204, 255, 0.1);
   }
   
-  .task-item {
-    @apply transform transition-all duration-200 hover:translate-y-[-2px] active:translate-y-[0px] shadow-sm hover:shadow;
+  .apple-task-item {
+    @apply transform transition-all duration-200 hover:translate-y-[-2px] active:translate-y-[0px] shadow-sm hover:shadow rounded-2xl;
   }
   
-  .time-block {
-    @apply relative border-l-2 rounded-r-md px-2 py-1 mb-1 text-sm transition-all duration-200;
+  .apple-time-block {
+    @apply relative border-l-2 rounded-r-md px-3 py-2 mb-1 text-sm transition-all duration-200;
   }
   
-  .time-block-high {
-    @apply border-l-energy-high bg-energy-high text-white;
+  .apple-time-block-high {
+    @apply border-l-energy-high bg-energy-high text-white font-medium;
   }
   
-  .time-block-medium {
-    @apply border-l-energy-medium bg-energy-medium text-white;
+  .apple-time-block-medium {
+    @apply border-l-energy-medium bg-energy-medium text-white font-medium;
   }
   
-  .time-block-low {
-    @apply border-l-energy-low bg-energy-low/90 text-gray-800;
+  .apple-time-block-low {
+    @apply border-l-energy-low bg-energy-low/90 text-gray-800 font-medium;
   }
   
-  .priority-badge {
-    @apply text-xs font-medium px-2 py-0.5 rounded-full;
+  .apple-priority-badge {
+    @apply text-xs font-bold px-2 py-1 rounded-full;
   }
   
-  .priority-high {
+  .apple-priority-high {
     @apply bg-priority-high/10 text-priority-high;
   }
   
-  .priority-medium {
+  .apple-priority-medium {
     @apply bg-priority-medium/10 text-priority-medium;
   }
   
-  .priority-low {
+  .apple-priority-low {
     @apply bg-priority-low/10 text-priority-low;
+  }
+
+  /* Hero section styling */
+  .apple-hero-headline {
+    @apply text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight leading-tight;
+  }
+
+  .apple-hero-subheadline {
+    @apply text-xl md:text-2xl font-display font-medium tracking-tight leading-tight;
+  }
+
+  .apple-feature-title {
+    @apply text-lg font-bold mb-2;
+  }
+
+  .apple-feature-card {
+    @apply rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 p-6;
+  }
+
+  .apple-cta-button {
+    @apply rounded-full bg-primary text-white font-semibold py-3 px-8 text-base;
+  }
+
+  .apple-section-title {
+    @apply text-3xl md:text-4xl font-bold mb-4;
+  }
+  
+  .apple-section-description {
+    @apply text-lg text-foreground/80 mb-8 max-w-2xl;
   }
 }
