@@ -25,7 +25,7 @@ export const useDashboard = () => {
   // Get backlog tasks
   const backlogTasks = getBacklogTasks(tasks, selectedDate);
   
-  // Arrange tasks by energy levels
+  // Arrange tasks by energy levels - returns object with keys for energy levels
   const arrangedTasks = arrangeTasksByEnergyLevels(todayTasks, timeBlocks);
   
   // Find active task

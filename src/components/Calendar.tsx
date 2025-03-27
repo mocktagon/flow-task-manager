@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Task, TimeBlock, EnergyLevel } from '@/types';
 import { getHourDivisions, getEnergyLevelClass } from '@/utils/taskUtils';
@@ -6,7 +5,7 @@ import TaskItem from './TaskItem';
 import { CalendarDays, CircleDot, BarChart } from 'lucide-react';
 
 interface CalendarProps {
-  tasks: Task[];
+  tasks: { [key: string]: Task[] };
   timeBlocks: TimeBlock[];
   date: Date;
   onStartTask: (taskId: string) => void;
@@ -22,6 +21,9 @@ const Calendar = ({
   onStopTask,
   onToggleComplete,
 }: CalendarProps) => {
+  // Flatten tasks object into array for processing
+  const flattenedTasks = Object.values(tasks).flat();
+  
   const hours = getHourDivisions();
   
   // Get the energy level for a specific hour
@@ -59,7 +61,7 @@ const Calendar = ({
     }
     
     // Find tasks scheduled for this hour
-    const hourTasks = tasks.filter(task => {
+    const hourTasks = flattenedTasks.filter(task => {
       if (!task.scheduledTime) return false;
       
       const [startTime, endTime] = task.scheduledTime.split('-');
@@ -74,10 +76,10 @@ const Calendar = ({
   
   // Count tasks by energy level
   const tasksByEnergyLevel = {
-    high: tasks.filter(task => task.energyLevel === 'high').length,
-    medium: tasks.filter(task => task.energyLevel === 'medium').length,
-    low: tasks.filter(task => task.energyLevel === 'low').length,
-    unassigned: tasks.filter(task => !task.energyLevel).length
+    high: flattenedTasks.filter(task => task.energyLevel === 'high').length,
+    medium: flattenedTasks.filter(task => task.energyLevel === 'medium').length,
+    low: flattenedTasks.filter(task => task.energyLevel === 'low').length,
+    unassigned: flattenedTasks.filter(task => !task.energyLevel).length
   };
   
   return (
