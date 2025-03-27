@@ -51,11 +51,8 @@ export const arrangeTasksByEnergyLevels = (
     unscheduled: []
   };
   
-  // Combine all time blocks for later use if needed
-  const allTimeBlocks = [...highEnergyBlocks, ...mediumEnergyBlocks, ...lowEnergyBlocks];
-
   // Create a copy of all tasks for assignment
-  const tasksToAssign = [...sortedTasks];
+  let tasksToAssign = [...sortedTasks];
   
   // First, fill high energy blocks with any priority tasks
   // Higher priority tasks get the first pick at high energy blocks
@@ -102,6 +99,40 @@ export const arrangeTasksByEnergyLevels = (
           energyLevel: block.energyLevel
         };
         result.low.push(updatedTask);
+      }
+    }
+  }
+  
+  // If we still have tasks and some energy types don't have blocks,
+  // let's assign tasks to available energy levels regardless of type
+  
+  // Check if we have no time blocks for certain energy levels
+  const noHighBlocks = timeBlocks.every(b => b.energyLevel !== 'high');
+  const noMediumBlocks = timeBlocks.every(b => b.energyLevel !== 'medium');
+  const noLowBlocks = timeBlocks.every(b => b.energyLevel !== 'low');
+  
+  // If some blocks are missing, create virtual blocks to schedule tasks
+  if (tasksToAssign.length > 0 && (noHighBlocks || noMediumBlocks || noLowBlocks)) {
+    // Gather all remaining available blocks
+    const remainingBlocks = [
+      ...highEnergyBlocks, 
+      ...mediumEnergyBlocks, 
+      ...lowEnergyBlocks
+    ];
+    
+    // Continue assigning tasks to any available blocks
+    while (remainingBlocks.length > 0 && tasksToAssign.length > 0) {
+      const task = tasksToAssign.shift();
+      if (task) {
+        const block = remainingBlocks.shift();
+        if (block) {
+          const updatedTask = { 
+            ...task, 
+            scheduledTime: `${block.startTime}-${block.endTime}`,
+            energyLevel: block.energyLevel
+          };
+          result[block.energyLevel].push(updatedTask);
+        }
       }
     }
   }
