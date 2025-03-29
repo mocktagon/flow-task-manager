@@ -4,7 +4,7 @@ import { Project, ProjectActivity } from '@/types';
 import { ChartContainer, ChartTooltipContent, ChartTooltip } from '@/components/ui/chart';
 import { Card, CardContent } from '@/components/ui/card';
 import { format, subDays, differenceInCalendarDays, parseISO, isValid } from 'date-fns';
-import { ResponsiveContainer, RechartTooltip, Tooltip } from 'recharts';
+import { ResponsiveContainer, Tooltip } from 'recharts';
 
 interface ProjectDetailsProps {
   project: Project;
