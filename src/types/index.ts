@@ -2,12 +2,18 @@
 export type Priority = 'high' | 'medium' | 'low';
 export type EnergyLevel = 'high' | 'medium' | 'low';
 
+export interface ProjectActivity {
+  date: string; // In format 'YYYY-MM-DD'
+  count: number;
+}
+
 export interface Project {
   id: string;
   title: string;
   description?: string;
   createdAt: Date;
   color?: string;
+  activity?: ProjectActivity[];
 }
 
 export interface Task {

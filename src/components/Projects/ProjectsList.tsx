@@ -2,9 +2,10 @@
 import React, { useState } from 'react';
 import { Project, Task } from '@/types';
 import { Button } from '@/components/ui/button';
-import { Plus, FileText } from 'lucide-react';
+import { Plus, FileText, ChevronDown, ChevronUp } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
+import ProjectDetails from './ProjectDetails';
 
 interface ProjectsListProps {
   projects: Project[];
@@ -13,6 +14,7 @@ interface ProjectsListProps {
 
 const ProjectsList = ({ projects, onAddTask }: ProjectsListProps) => {
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const [detailsVisible, setDetailsVisible] = useState<Record<string, boolean>>({});
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   const handleQuickAddTask = (projectId: string) => {
@@ -42,6 +44,13 @@ const ProjectsList = ({ projects, onAddTask }: ProjectsListProps) => {
       setNewTaskTitle('');
     }
   };
+  
+  const toggleDetails = (projectId: string) => {
+    setDetailsVisible(prev => ({
+      ...prev,
+      [projectId]: !prev[projectId]
+    }));
+  };
 
   return (
     <div className="space-y-4">
@@ -53,7 +62,7 @@ const ProjectsList = ({ projects, onAddTask }: ProjectsListProps) => {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4">
         {projects.map((project) => (
           <Card 
             key={project.id} 
@@ -67,18 +76,35 @@ const ProjectsList = ({ projects, onAddTask }: ProjectsListProps) => {
                   <FileText className="h-4 w-4 text-muted-foreground" />
                   {project.title}
                 </h4>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="h-8 px-2"
-                  onClick={() => toggleProject(project.id)}
-                >
-                  {expandedProject === project.id ? 'Close' : 'Add Task'}
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-8 px-2"
+                    onClick={() => toggleDetails(project.id)}
+                  >
+                    {detailsVisible[project.id] ? 
+                      <ChevronUp className="h-4 w-4" /> : 
+                      <ChevronDown className="h-4 w-4" />
+                    }
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-8 px-2"
+                    onClick={() => toggleProject(project.id)}
+                  >
+                    {expandedProject === project.id ? 'Close' : 'Add Task'}
+                  </Button>
+                </div>
               </div>
               
-              {project.description && (
-                <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
+              {project.description && !detailsVisible[project.id] && (
+                <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{project.description}</p>
+              )}
+              
+              {detailsVisible[project.id] && (
+                <ProjectDetails project={project} />
               )}
               
               {expandedProject === project.id && (

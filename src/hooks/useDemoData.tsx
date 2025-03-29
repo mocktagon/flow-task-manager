@@ -1,8 +1,30 @@
 
-import { Task, TimeBlock, Project } from '../types';
+import { Task, TimeBlock, Project, ProjectActivity } from '../types';
 import { generateId } from '../utils/taskUtils';
+import { format, subDays } from 'date-fns';
 
 export const useDemoData = () => {
+  // Generate activity data for the last 90 days
+  const generateActivityData = (): ProjectActivity[] => {
+    const today = new Date();
+    return Array.from({ length: 90 }, (_, i) => {
+      const date = format(subDays(today, 90 - i - 1), 'yyyy-MM-dd');
+      // Create some patterns in the data
+      let count = 0;
+      
+      // More activity on weekends
+      const dayOfWeek = new Date(date).getDay();
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        count = Math.floor(Math.random() * 5) + 2;
+      } else {
+        // Random activity on weekdays with some empty days
+        count = Math.random() > 0.3 ? Math.floor(Math.random() * 3) : 0;
+      }
+      
+      return { date, count };
+    });
+  };
+
   // Demo time blocks
   const initialTimeBlocks: TimeBlock[] = [
     { startTime: '9:00', endTime: '11:00', energyLevel: 'high' },
@@ -17,9 +39,10 @@ export const useDemoData = () => {
     {
       id: generateId(),
       title: 'Write a thriller novel',
-      description: 'Complete a 300-page psychological thriller by end of year',
-      createdAt: new Date(),
+      description: 'Complete a 300-page psychological thriller by end of year. The story follows a detective trying to solve a series of mysterious disappearances in a small coastal town, only to discover supernatural elements at play. The protagonist must confront their own past traumas while racing against time.',
+      createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000), // 60 days ago
       color: 'purple-500',
+      activity: generateActivityData()
     }
   ];
 
