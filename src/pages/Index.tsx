@@ -7,6 +7,7 @@ import { useDashboard } from '@/hooks/useDashboard';
 const Index = () => {
   const {
     tasks,
+    projects,
     backlogTasks,
     arrangedTasks,
     timeBlocks,
@@ -28,6 +29,7 @@ const Index = () => {
       <main className="container max-w-6xl mx-auto px-4 py-6">
         <DashboardLayout 
           tasks={tasks}
+          projects={projects}
           backlogTasks={backlogTasks}
           arrangedTasks={arrangedTasks}
           timeBlocks={timeBlocks}

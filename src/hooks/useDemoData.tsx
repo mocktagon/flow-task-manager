@@ -1,5 +1,5 @@
 
-import { Task, TimeBlock } from '../types';
+import { Task, TimeBlock, Project } from '../types';
 import { generateId } from '../utils/taskUtils';
 
 export const useDemoData = () => {
@@ -10,6 +10,17 @@ export const useDemoData = () => {
     { startTime: '13:00', endTime: '14:00', energyLevel: 'low' },
     { startTime: '14:00', endTime: '16:00', energyLevel: 'medium' },
     { startTime: '16:00', endTime: '18:00', energyLevel: 'high' },
+  ];
+
+  // Demo projects
+  const initialProjects: Project[] = [
+    {
+      id: generateId(),
+      title: 'Write a thriller novel',
+      description: 'Complete a 300-page psychological thriller by end of year',
+      createdAt: new Date(),
+      color: 'purple-500',
+    }
   ];
 
   // Demo tasks
@@ -61,8 +72,21 @@ export const useDemoData = () => {
       dateCreated: new Date(Date.now() - 86400000), // Yesterday
       dueDate: new Date(Date.now() - 86400000),
       elapsedSeconds: 0,
+    },
+    {
+      id: generateId(),
+      title: 'Outline plot for first chapter',
+      description: 'Create detailed outline for opening chapter',
+      priority: 'high',
+      estimatedMinutes: 60,
+      completed: false,
+      inProgress: false,
+      dateCreated: new Date(),
+      dueDate: new Date(Date.now() + 86400000 * 2), // 2 days from now
+      elapsedSeconds: 0,
+      projectId: initialProjects[0].id,
     }
   ];
 
-  return { initialTasks, initialTimeBlocks };
+  return { initialTasks, initialTimeBlocks, initialProjects };
 };

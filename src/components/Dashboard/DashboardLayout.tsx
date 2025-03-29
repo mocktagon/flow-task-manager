@@ -1,14 +1,16 @@
 
 import React from 'react';
-import { Task, TimeBlock } from '@/types';
+import { Task, TimeBlock, Project } from '@/types';
 import DashboardHeader from './DashboardHeader';
 import DashboardStats from './DashboardStats';
 import TaskSidebar from './TaskSidebar';
 import CalendarSection from './CalendarSection';
 import Timer from '@/components/Timer';
+import { ProjectsList } from '@/components/Projects';
 
 interface DashboardLayoutProps {
   tasks: Task[];
+  projects: Project[];
   backlogTasks: Task[];
   arrangedTasks: { [key: string]: Task[] };
   timeBlocks: TimeBlock[];
@@ -25,6 +27,7 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({
   tasks,
+  projects,
   backlogTasks,
   arrangedTasks,
   timeBlocks,
@@ -43,6 +46,10 @@ const DashboardLayout = ({
       <div className="genz-card p-6 genz-glow">
         <DashboardHeader />
         <DashboardStats tasks={tasks} />
+      </div>
+      
+      <div className="genz-card p-6 genz-glow">
+        <ProjectsList projects={projects} onAddTask={onAddTask} />
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

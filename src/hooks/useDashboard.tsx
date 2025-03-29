@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 export const useDashboard = () => {
   const {
     tasks,
+    projects,
     timeBlocks,
     selectedDate,
     setSelectedDate,
@@ -67,6 +68,7 @@ export const useDashboard = () => {
 
   return {
     tasks,
+    projects,
     backlogTasks,
     arrangedTasks,
     timeBlocks,

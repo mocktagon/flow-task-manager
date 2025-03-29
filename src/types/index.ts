@@ -1,5 +1,14 @@
+
 export type Priority = 'high' | 'medium' | 'low';
 export type EnergyLevel = 'high' | 'medium' | 'low';
+
+export interface Project {
+  id: string;
+  title: string;
+  description?: string;
+  createdAt: Date;
+  color?: string;
+}
 
 export interface Task {
   id: string;
@@ -14,6 +23,7 @@ export interface Task {
   scheduledTime?: string;
   elapsedSeconds: number;
   energyLevel?: EnergyLevel;
+  projectId?: string;
 }
 
 export interface TimeBlock {
